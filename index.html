@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastShop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #5865F2;
+      --primary-dark: #4752C4;
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
+      --text: #e0e0ff;
+      --accent: #00ffcc;
+      --green: #4caf50;
+      --red: #f44336;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    h1 {
+      margin: 0;
+      font-size: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    h1 i {
+      font-size: 3.5rem;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    nav {
+      margin-top: 1.5rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 1.2rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .category {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .category.active {
+      display: grid;
+    }
+    .product {
+      background: var(--card);
+      border-radius: 15px;
+      padding: 1.8rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .product:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 10px 30px rgba(88, 101, 242, 0.5);
+    }
+    .product h3 {
+      margin: 0 0 1rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: var(--primary);
+    }
+    .stock {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .stock.in-stock { color: var(--green); }
+    .stock.out-stock { color: var(--red); }
+    button.add-to-cart {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+    button.add-to-cart:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+    button.add-to-cart.disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+    .cart-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      z-index: 100;
+      transition: transform 0.3s;
+    }
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--accent);
+      color: black;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal-content {
+      background: var(--card);
+      padding: 2.5rem;
+      border-radius: 15px;
+      max-width: 550px;
+      width: 95%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    .close {
+      float: right;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #aaa;
+    }
+    .close:hover {
+      color: var(--text);
+    }
+    input, select {
+      width: 100%;
+      padding: 1rem;
+      margin: 0.6rem 0;
+      border-radius: 10px;
+      border: none;
+      background: #16213e;
+      color: white;
+      font-size: 1rem;
+    }
+    .checkout-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 1.2rem;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: background 0.3s;
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      background: var(--card);
+      margin-top: 5rem;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
+    }
+    .discord-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .discord-link:hover {
+      color: var(--accent);
+    }
+    .how-to {
+      display: none;
+      background: var(--card);
+      padding: 2.5rem;
+      border-radius: 15px;
+      line-height: 2.2;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .how-to.active {
+      display: block;
+    }
+    .note {
+      background: #2d1b3a;
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin: 1.2rem 0;
+      font-style: italic;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fab fa-discord"></i> FastShop</h1>
+    <nav>
+      <a href="#" class="tab-link active" data-tab="optymalizacja">Optymalizacja</a>
+      <a href="#" class="tab-link" data-tab="valorant">Valorant Points</a>
+      <a href="#" class="tab-link" data-tab="robux">Robuxy</a>
+      <a href="#" class="tab-link" data-tab="howto">Jak zamówić</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="optymalizacja" class="category active">
+      <!-- Produkty renderowane dynamicznie -->
+    </div>
+
+    <div id="valorant" class="category">
+      <div class="note">Valorant Points można zamówić TYLKO na priv przez Discord!</div>
+      <p>Aby kupić VP, napisz na Discordzie do @nie_teletubisek z informacją ile chcesz VP.</p>
+      <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank">Dołącz do Discorda</a>
+    </div>
+
+    <div id="robux" class="category">
+      <!-- Produkty renderowane dynamicznie -->
+    </div>
+
+    <div id="howto" class="how-to">
+      <h2>Jak zamówić?</h2>
+      <ol>
+        <li>Wybierz produkt/y</li>
+        <li>Idź do koszyka (ikona w prawym dolnym rogu) i wybierz płatność oraz wypełnij informacje</li>
+        <li>Weź swoje ID zamówienia i napisz na tickecie (spinguj @nie_teletubisek)</li>
+        <li>Czekaj aż Teletubiś zrealizuje Twoje zamówienie – czas oczekiwania od 1h do 24h</li>
+      </ol>
+    </div>
+  </main>
+
+  <div class="cart-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </div>
+
+  <!-- Modal koszyka -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Koszyk</h2>
+      <div id="cartItems"></div>
+      <hr>
+      <p>Razem: <strong id="totalPrice">0 zł</strong></p>
+      <input type="text" id="discountCode" placeholder="Kod rabatowy (np. NewYear)">
+      <p id="discountInfo"></p>
+      <button class="checkout-btn" id="checkoutBtn">Przejdź do płatności</button>
+    </div>
+  </div>
+
+  <!-- Modal płatności -->
+  <div class="modal" id="checkoutModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Płatność</h2>
+      <p><strong>Razem do zapłaty: <span id="finalPrice">0 zł</span></strong></p>
+
+      <label>Metoda płatności</label>
+      <select id="paymentMethod">
+        <option value="przelew">Przelew bankowy</option>
+        <option value="psc">Paysafecard</option>
+        <option value="paypal">PayPal</option>
+      </select>
+
+      <label>Nazwa na Discordzie *</label>
+      <input type="text" id="discordName" required>
+
+      <label>Imię i nazwisko *</label>
+      <input type="text" id="fullName" required>
+
+      <label>E-mail kontaktowy *</label>
+      <input type="email" id="email" required>
+
+      <label>Numer telefonu (opcjonalnie)</label>
+      <input type="tel" id="phone">
+
+      <button class="checkout-btn" id="confirmOrder">Potwierdź zamówienie</button>
+    </div>
+  </div>
+
+  <!-- Modal potwierdzenia -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <h2>Zamówienie przyjęte!</h2>
+      <p><strong>ID zamówienia:</strong> <span id="orderId"></span></p>
+      <p><strong>Szacowany czas realizacji:</strong> <span id="waitTime"></span></p>
+      <p>Skopiuj ID zamówienia i napisz na tickecie Discorda (@nie_teletubisek).</p>
+      <p>Dziękujemy za zakup w FastShop!</p>
+      <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank">Przejdź na Discorda</a>
+    </div>
+  </div>
+
+  <footer>
+    Masz problem z zamówieniem? Możesz też zamówić bezpośrednio na Discordzie: 
+    <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank">@nie_teletubisek</a>
+  </footer>
+
+  <script>
+    // === KONFIGURACJA ===
+    const WEBHOOK_B64 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ1NjM1Mzg5MzMzOTYzMTgzNy9GZnJVUUhoTEpYYXo0OVhrcHpybjBLbjdRNEt1ZGo1WXNIZFdZMUN2Q0p5N1Jtb2Y4RHRLVTdmVWxYWHpzcVBBQmo1bg=="; // Twój webhook zakodowany Base64
+    const DISCORD_LINK = "https://discord.gg/BKV37cxef5"; // Link do serwera Discorda
+
+    // Lista wszystkich produktów - edytuj tutaj!
+    const products = {
+      optymalizacja: [
+        { name: "Basic Chip", price: 0, stock: "V", desc: "Podstawowa optymalizacja" },
+        { name: "Speed Chip", price: 10, stock: "V", desc: "Zwiększona wydajność" },
+        { name: "Furious Chip", price: 25, stock: "V", desc: "Agresywna optymalizacja" }, // Przykład X - brak stocku
+        { name: "Ultra Chip", price: 50, stock: "V", desc: "Maksymalna moc" },
+        { name: "Streamer Chip", price: 100, stock: "V", desc: "Dla streamerów – zero lagów" }
+      ],
+      robux: [
+        { name: "800 Robux", price: 36.13, stock: "V", desc: "" },
+        { name: "2000 Robux", price: 88.92, stock: "V", desc: "" },
+        { name: "4500 Robux", price: 179.34, stock: "V", desc: "" }, // Przykład X
+        { name: "10000 Robux", price: 373.46, stock: "V", desc: "" }
+      ]
+    };
+
+    // Dekodowanie webhooka
+    const webhookUrl = atob(WEBHOOK_B64);
+
+    let cart = [];
+    const discountCodes = { "NEWYEAR": 0.10 }; // 10% zniżki
+
+    // Renderowanie produktów dynamicznie
+    function renderProducts() {
+      Object.keys(products).forEach(category => {
+        const container = document.getElementById(category);
+        if (!container) return;
+        container.innerHTML = ''; // Czyszczenie
+        products[category].forEach(product => {
+          const div = document.createElement('div');
+          div.className = 'product';
+          div.dataset.name = product.name;
+          div.dataset.price = product.price;
+
+          const stockClass = product.stock === 'V' ? 'in-stock' : 'out-stock';
+          const stockIcon = product.stock === 'V' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+          const disabled = product.stock === 'X' ? 'disabled' : '';
+
+          div.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>${product.desc}</p>
+            <div class="price">${product.price.toFixed(2)} zł</div>
+            <div class="stock ${stockClass}">${stockIcon} ${product.stock === 'V' ? 'W stocku' : 'Brak na stocku'}</div>
+            <button class="add-to-cart ${disabled}" ${disabled ? 'disabled' : ''}>Dodaj do koszyka</button>
+          `;
+          container.appendChild(div);
+        });
+      });
+
+      // Dodawanie eventów do buttonów (po renderze)
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', addToCart);
+      });
+    }
+
+    // Funkcja dodawania do koszyka
+    function addToCart(e) {
+      const product = e.target.closest('.product');
+      const name = product.dataset.name;
+      const price = parseFloat(product.dataset.price);
+
+      // Sprawdź stock (dodatkowa walidacja)
+      const prodConfig = Object.values(products).flat().find(p => p.name === name);
+      if (prodConfig.stock === 'X') {
+        alert('Brak na stocku! Nie możesz dodać tego produktu.');
+        return;
+      }
+
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      updateCartCount();
+      renderCart();
+    }
+
+    // Aktualizacja licznika koszyka
+    function updateCartCount() {
+      document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    // Renderowanie koszyka
+    function renderCart() {
+      const itemsDiv = document.getElementById('cartItems');
+      let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      itemsDiv.innerHTML = cart.map(item => 
+        `<p>${item.name} x${item.qty} — ${ (item.price * item.qty).toFixed(2) } zł</p>`
+      ).join('') || '<p>Koszyk jest pusty</p>';
+      document.getElementById('totalPrice').textContent = total.toFixed(2) + ' zł';
+    }
+
+    // Kod rabatowy
+    document.getElementById('discountCode').addEventListener('input', e => {
+      const code = e.target.value.toUpperCase();
+      const info = document.getElementById('discountInfo');
+      if (discountCodes[code]) {
+        info.textContent = `Zastosowano kod ${code}: -${discountCodes[code]*100}%`;
+        info.style.color = 'var(--accent)';
+      } else if (code) {
+        info.textContent = 'Nieprawidłowy kod';
+        info.style.color = 'red';
+      } else {
+        info.textContent = '';
+      }
+      renderCart();
+    });
+
+    // Otwieranie koszyka
+    document.getElementById('cartIcon').addEventListener('click', () => {
+      renderCart();
+      document.getElementById('cartModal').style.display = 'flex';
+    });
+
+    // Przejście do płatności
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      if (cart.length === 0) return alert('Koszyk jest pusty!');
+      document.getElementById('cartModal').style.display = 'none';
+      document.getElementById('checkoutModal').style.display = 'flex';
+
+      let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const code = document.getElementById('discountCode').value.toUpperCase();
+      if (discountCodes[code]) total *= (1 - discountCodes[code]);
+      document.getElementById('finalPrice').textContent = total.toFixed(2) + ' zł';
+    });
+
+    // Potwierdzenie zamówienia
+    document.getElementById('confirmOrder').addEventListener('click', () => {
+      const discord = document.getElementById('discordName').value.trim();
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!discord || !name || !email) return alert('Wypełnij wymagane pola!');
+
+      const orderId = 'FS' + Date.now().toString(36).toUpperCase();
+      const waitHours = Math.floor(Math.random() * 24) + 1;
+      const waitTime = waitHours === 1 ? '1 godzina' : waitHours + ' godzin';
+
+      document.getElementById('orderId').textContent = orderId;
+      document.getElementById('waitTime').textContent = waitTime;
+
+      // Wysyłka na webhook
+      let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const code = document.getElementById('discountCode').value.toUpperCase();
+      if (discountCodes[code]) total *= (1 - discountCodes[code]);
+
+      const payload = {
+        embeds: [{
+          title: "Nowe zamówienie FastShop",
+          color: 5814783,
+          fields: [
+            { name: "ID zamówienia", value: orderId, inline: false },
+            { name: "Klient", value: `${name} (${discord})`, inline: false },
+            { name: "E-mail", value: email, inline: false },
+            { name: "Telefon", value: document.getElementById('phone').value || 'Brak', inline: false },
+            { name: "Płatność", value: document.getElementById('paymentMethod').value, inline: false },
+            { name: "Produkty", value: cart.map(i => `${i.name} x${i.qty}`).join('\n'), inline: false },
+            { name: "Kod rabatowy", value: code || 'Brak', inline: false },
+            { name: "Kwota", value: total.toFixed(2) + ' zł', inline: false }
+          ],
+          timestamp: new Date().toISOString()
+        }]
+      };
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      document.getElementById('checkoutModal').style.display = 'none';
+      document.getElementById('orderModal').style.display = 'flex';
+      cart = [];
+      updateCartCount();
+    });
+
+    // Zamykanie modalów
+    document.querySelectorAll('.close').forEach(el => {
+      el.addEventListener('click', () => {
+        el.closest('.modal').style.display = 'none';
+      });
+    });
+
+    // Przełączanie zakładek
+    document.querySelectorAll('.tab-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        document.querySelectorAll('.category, .how-to').forEach(sec => sec.classList.remove('active'));
+        const target = link.dataset.tab;
+        if (target === 'howto') {
+          document.getElementById('howto').classList.add('active');
+        } else {
+          document.getElementById(target).classList.add('active');
+        }
+      });
+    });
+
+    // Aktualizacja linków Discorda
+    document.querySelectorAll('.discord-link').forEach(a => a.href = DISCORD_LINK);
+
+    // Inicjalizacja
+    renderProducts();
+    updateCartCount();
+  </script>
+</body>
+</html>
