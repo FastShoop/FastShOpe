@@ -490,6 +490,13 @@
       <button class="checkout-btn" id="confirmCancel">Potwierdź anulowanie</button>
     </div>
   </div>
+  <div class="modal" id="cancelSuccessModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Zamówienie anulowane!</h2>
+      <p>Twoje zamówienie zostało anulowane. Powiadomiliśmy obsługę.</p>
+    </div>
+  </div>
   <div class="modal" id="statsOptModal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -718,20 +725,34 @@
       document.getElementById('waitTime').textContent = waitTime;
       let total = getTotal();
       const code = document.getElementById('discountCode').value.toUpperCase() || 'Brak';
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const phone = document.getElementById('phone').value || 'Brak';
+      const productsList = cart.map(i => `${i.name} x${i.qty}`).join('\n');
       const payload = {
         embeds: [{
-          title: "Nowe zamówienie FastShop",
-          color: 5814783,
+          title: "🛒 Nowe Zamówienie w FastShop!",
+          description: `**ID Zamówienia:** ${orderId}\n**Szacowany Czas:** ${waitTime}`,
+          color: 0xF4D03F, // Żółty kolor pasujący do tematu
           fields: [
-            { name: "ID zamówienia", value: orderId, inline: false },
-            { name: "Klient", value: `${name} (${discord})`, inline: false },
-            { name: "E-mail", value: email, inline: false },
-            { name: "Telefon", value: document.getElementById('phone').value || 'Brak', inline: false },
-            { name: "Płatność", value: document.getElementById('paymentMethod').value, inline: false },
-            { name: "Produkty", value: cart.map(i => `${i.name} x${i.qty}`).join('\n'), inline: false },
-            { name: "Kod rabatowy", value: code, inline: false },
-            { name: "Kwota", value: total.toFixed(2).replace('.', ',') + ' zł', inline: false }
+            { name: "👤 Klient", value: `${name} (@${discord})`, inline: true },
+            { name: "📧 E-mail", value: email, inline: true },
+            { name: "📞 Telefon", value: phone, inline: true },
+            { name: "💳 Metoda Płatności", value: paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1), inline: true },
+            { name: "🛍️ Produkty", value: productsList || 'Brak produktów', inline: false },
+            { name: "🎟️ Kod Rabatowy", value: code, inline: true },
+            { name: "💰 Kwota", value: `${total.toFixed(2).replace('.', ',')} zł`, inline: true }
           ],
+          author: {
+            name: "FastShop - Szybkie Zakupy",
+            icon_url: "https://i.imgur.com/your-logo.png" // Możesz dodać URL do logo, jeśli masz
+          },
+          footer: {
+            text: "Zamówienie złożone: " + new Date().toLocaleString('pl-PL'),
+            icon_url: "https://i.imgur.com/clock-icon.png" // Ikona zegara lub coś podobnego
+          },
+          thumbnail: {
+            url: "https://i.imgur.com/shopping-cart-icon.png" // Miniatura koszyka
+          },
           timestamp: new Date().toISOString()
         }]
       };
@@ -752,6 +773,36 @@
       document.getElementById('paymentMethod').value = 'przelew';
       document.getElementById('acceptTerms').checked = false;
       document.getElementById('discountCode').value = '';
+    });
+    document.getElementById('cancelOrderBtn').addEventListener('click', () => {
+      document.getElementById('orderModal').style.display = 'none';
+      document.getElementById('cancelModal').style.display = 'flex';
+    });
+    document.getElementById('confirmCancel').addEventListener('click', () => {
+      const cancelId = document.getElementById('cancelId').value.trim();
+      if (cancelId !== currentOrderId) return alert('Nieprawidłowe ID zamówienia!');
+      const payload = {
+        embeds: [{
+          title: "❌ Anulowanie Zamówienia w FastShop",
+          description: `**ID Zamówienia:** ${cancelId}\nZamówienie zostało anulowane przez klienta.`,
+          color: 0xFF0000, // Czerwony kolor dla anulowania
+          fields: [
+            { name: "👤 Klient", value: "Anonimowy (anulowane)", inline: false }
+          ],
+          footer: {
+            text: "Anulowano: " + new Date().toLocaleString('pl-PL')
+          },
+          timestamp: new Date().toISOString()
+        }]
+      };
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById('cancelModal').style.display = 'none';
+      document.getElementById('cancelSuccessModal').style.display = 'flex';
+      currentOrderId = ''; // Reset currentOrderId
     });
     document.querySelectorAll('.close').forEach(el => {
       el.addEventListener('click', () => {
