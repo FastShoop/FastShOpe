@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FastShop • Najszybsze doładowania & boosty</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;900&display=swap" rel="stylesheet"/>
+  <title>FastShop • Szybko i Tanio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #07070f;
-      --surface: #0e0e1c;
-      --surface2: #131325;
-      --text: #f0f0ff;
-      --text2: #b0b0e8;
-      --accent: #00eaff;
-      --accent-glow: rgba(0,234,255,0.35);
-      --yellow: #ffeb3b;
-      --yellow-glow: rgba(255,235,59,0.4);
-      --green: #00ffaa;
-      --red: #ff4d88;
-      --radius: 18px;
-      --radius-sm: 12px;
-      --shadow: 0 14px 40px rgba(0,0,0,0.68);
-      --glow-soft: 0 0 28px rgba(0,234,255,0.18);
-      --glow-strong: 0 0 40px rgba(255,235,59,0.32);
+      --bg:        #0a0a12;
+      --card:      #11111f;
+      --card-lite: #161624;
+      --text:      #e5e5ff;
+      --text-soft: #a3a3cc;
+      --primary:   #ffd43b;     /* neon żółty */
+      --primary-d: #ffaa00;
+      --accent:    #00d4ff;     /* electric cyan */
+      --accent-d:  #0099cc;
+      --green:     #00ff9d;
+      --red:       #ff4d6b;
+      --radius:    16px;
+      --shadow:    0 12px 32px rgba(0,0,0,0.55);
+      --shadow-glow: 0 0 24px rgba(255,212,59,0.22);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -32,387 +30,352 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 15% 20%, rgba(0,234,255,0.06) 0%, transparent 25%),
-        radial-gradient(circle at 85% 75%, rgba(255,235,59,0.05) 0%, transparent 30%);
-      background-attachment: fixed;
+      line-height: 1.6;
     }
 
     header {
-      background: linear-gradient(to bottom, #0f001a, #0a0012);
-      padding: 2.4rem 1rem 1.6rem;
+      background: linear-gradient(135deg, #1a0033, #0d001a);
+      padding: 2.2rem 1rem 1.8rem;
       text-align: center;
       position: sticky;
       top: 0;
-      z-index: 200;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      z-index: 100;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+      border-bottom: 1px solid #222;
     }
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(3rem, 9vw, 5.2rem);
-      background: linear-gradient(90deg, var(--yellow), var(--accent), var(--yellow));
-      background-size: 200% auto;
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
+      background: linear-gradient(90deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.4rem;
-      margin: 0 0 0.4rem;
-      animation: titleShine 6s linear infinite;
-      text-shadow: 0 0 60px rgba(255,235,59,0.5), 0 0 100px rgba(0,234,255,0.3);
+      gap: 1.2rem;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 0 30px rgba(255,212,59,0.4);
     }
 
-    @keyframes titleShine {
-      0%,100% { background-position: 0% center; }
-      50%     { background-position: 200% center; }
-    }
+    h1 i { font-size: 1.1em; animation: pulse 2s infinite; }
 
-    h1 i {
-      font-size: 1.15em;
-      animation: bolt 1.8s infinite;
-    }
-
-    @keyframes bolt {
-      0%,100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-      50%     { transform: scale(1.18) rotate(6deg); opacity: 1; }
+    @keyframes pulse {
+      0%,100% { opacity:0.8; transform:scale(1); }
+      50%     { opacity:1;   transform:scale(1.12); }
     }
 
     nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.1rem 1.6rem;
-      margin-top: 1.4rem;
+      gap: 1.4rem;
+      margin-top: 1.2rem;
     }
 
     nav a {
-      color: var(--text2);
+      color: var(--text-soft);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.12rem;
-      padding: 0.7rem 1.5rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.5rem 1.1rem;
       border-radius: 999px;
-      transition: all 0.28s ease;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.25s ease;
     }
 
     nav a:hover,
     nav a.active {
-      background: rgba(0,234,255,0.14);
-      color: white;
-      border-color: var(--accent);
-      box-shadow: 0 0 24px var(--accent-glow);
-      transform: translateY(-1px);
+      background: rgba(255,212,59,0.12);
+      color: var(--primary);
+      box-shadow: 0 0 16px rgba(255,212,59,0.25);
     }
 
     main {
-      max-width: 1340px;
-      margin: 3rem auto;
-      padding: 0 1.4rem;
+      max-width: 1280px;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
     }
 
     .category {
       display: none;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      animation: fadeUp 0.6s ease-out;
     }
+    .category.active { display: grid; }
 
-    .category.active {
-      display: grid;
-      animation: appear 0.7s ease-out;
-    }
-
-    @keyframes appear {
-      from { opacity:0; transform:translateY(24px); }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
       to   { opacity:1; transform:translateY(0); }
     }
 
     .product {
-      background: linear-gradient(145deg, var(--surface), var(--surface2));
+      background: linear-gradient(145deg, var(--card), var(--card-lite));
       border-radius: var(--radius);
-      padding: 2rem 1.6rem;
+      padding: 1.8rem 1.5rem;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.4s cubic-bezier(0.19,1,0.22,1);
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow);
     }
 
-    .product::after {
+    .product::before {
       content: '';
       position: absolute;
-      inset: -50%;
-      background: conic-gradient(from 0deg at 50% 50%, transparent, var(--accent), transparent 60deg);
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,212,59,0.08), transparent);
       opacity: 0;
-      transition: opacity 0.6s;
+      transition: opacity 0.4s;
       pointer-events: none;
-      animation: spin 12s linear infinite;
     }
 
-    .product:hover::after { opacity: 0.12; }
+    .product:hover::before { opacity: 1; }
 
     .product:hover {
-      transform: translateY(-14px);
-      box-shadow: var(--shadow), 0 0 60px rgba(0,234,255,0.25);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: var(--shadow), var(--shadow-glow);
     }
 
     .product h3 {
       font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 1.6rem;
+      font-size: 1.45rem;
+      margin-bottom: 0.8rem;
       color: var(--accent);
-      margin-bottom: 0.9rem;
-      text-shadow: 0 0 16px var(--accent-glow);
+      text-shadow: 0 0 12px rgba(0,212,255,0.4);
     }
 
-    .product .desc {
-      color: var(--text2);
-      font-size: 0.96rem;
-      margin-bottom: 1.3rem;
-      min-height: 3.2em;
-    }
+    .product p { color: var(--text-soft); font-size: 0.95rem; margin-bottom: 1.2rem; }
 
     .price {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: var(--yellow);
-      margin: 1rem 0;
-      text-shadow: 0 0 32px var(--yellow-glow);
-      letter-spacing: -1px;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0.9rem 0;
+      text-shadow: 0 0 16px rgba(255,212,59,0.5);
     }
 
-    .badge {
-      font-size: 1.02rem;
-      margin: 0.6rem 0;
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
-      display: inline-block;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
+    .stock, .discount {
+      font-size: 1rem;
+      margin: 0.5rem 0;
     }
 
-    .in-stock  { color: var(--green); border-color: rgba(0,255,170,0.3); }
-    .out-stock { color: var(--red);   border-color: rgba(255,77,136,0.3); }
+    .in-stock  { color: var(--green); }
+    .out-stock { color: var(--red);   }
     .yes       { color: var(--green); }
     .no        { color: var(--red);   }
 
     .add-to-cart {
-      background: linear-gradient(90deg, var(--yellow), #ffca28);
-      color: #0a0a1a;
+      background: linear-gradient(90deg, var(--primary), var(--primary-d));
+      color: #0f0f1a;
       border: none;
-      padding: 1rem 2.4rem;
+      padding: 0.9rem 2rem;
       border-radius: 999px;
-      font-weight: 700;
-      font-size: 1.05rem;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 1.4rem;
-      transition: all 0.32s;
-      box-shadow: 0 8px 28px rgba(255,235,59,0.35);
+      margin-top: 1.2rem;
+      transition: all 0.3s;
+      box-shadow: 0 6px 20px rgba(255,212,59,0.3);
     }
 
     .add-to-cart:hover {
-      transform: translateY(-4px) scale(1.04);
-      box-shadow: 0 16px 44px rgba(255,235,59,0.55);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255,212,59,0.5);
     }
 
     .add-to-cart.disabled {
-      background: #3a3a4a;
-      color: #888;
-      box-shadow: none;
+      background: #444;
       cursor: not-allowed;
-      transform: none;
+      box-shadow: none;
     }
 
     .cart-icon {
       position: fixed;
-      bottom: 40px;
-      right: 40px;
-      width: 88px;
-      height: 88px;
-      background: linear-gradient(135deg, var(--yellow), #ffca28);
+      bottom: 32px;
+      right: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-d));
+      width: 78px;
+      height: 78px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.4rem;
-      color: #0a0a1a;
+      font-size: 2.1rem;
+      color: #0f0f1a;
       cursor: pointer;
-      box-shadow: 0 12px 40px rgba(255,235,59,0.5), inset 0 2px 8px rgba(255,255,255,0.3);
-      z-index: 9999;
-      transition: all 0.35s cubic-bezier(0.18,0.89,0.32,1.28);
+      box-shadow: var(--shadow), 0 0 30px rgba(255,212,59,0.4);
+      z-index: 999;
+      transition: all 0.3s;
     }
 
-    .cart-icon:hover {
-      transform: scale(1.18) rotate(12deg);
-      box-shadow: 0 20px 60px rgba(255,235,59,0.7);
-    }
+    .cart-icon:hover { transform: scale(1.12) rotate(8deg); }
 
     .cart-count {
       position: absolute;
-      top: -8px;
-      right: -8px;
+      top: -6px;
+      right: -6px;
       background: var(--accent);
       color: #000;
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      font-size: 1.15rem;
-      font-weight: 800;
+      font-size: 1.05rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 4px solid var(--bg);
-      box-shadow: 0 0 16px var(--accent-glow);
+      border: 3px solid var(--bg);
     }
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(5,5,15,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
       align-items: center;
       justify-content: center;
-      z-index: 10000;
-      padding: 1.5rem;
+      z-index: 2000;
+      padding: 1rem;
     }
 
     .modal-content {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: var(--radius);
-      padding: 2.6rem 2.2rem;
-      max-width: 620px;
+      padding: 2.2rem;
+      max-width: 580px;
       width: 100%;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.85), 0 0 60px rgba(0,234,255,0.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
       position: relative;
-      animation: modalPop 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-
-    @keyframes modalPop {
-      from { opacity:0; transform:scale(0.88) translateY(30px); }
-      to   { opacity:1; transform:scale(1) translateY(0); }
     }
 
     .close {
       position: absolute;
-      top: 1.4rem;
-      right: 1.8rem;
-      font-size: 2.6rem;
-      color: var(--text2);
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: var(--text-soft);
       cursor: pointer;
-      transition: all 0.25s;
+      transition: color 0.2s;
     }
 
-    .close:hover { color: white; transform: rotate(90deg); }
+    .close:hover,
+    .close.red:hover { color: white; }
 
     input, select {
       width: 100%;
-      padding: 1.15rem 1.4rem;
-      margin: 0.8rem 0;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255,255,255,0.09);
-      background: rgba(255,255,255,0.03);
+      padding: 1rem 1.2rem;
+      margin: 0.7rem 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
       color: white;
-      font-size: 1.05rem;
-      transition: all 0.25s;
+      font-size: 1rem;
     }
 
     input:focus, select:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(0,234,255,0.22);
+      box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
     }
 
-    .checkout-btn, .guarantee-btn {
-      background: linear-gradient(90deg, var(--yellow), #ffca28);
-      color: #0a0a1a;
+    .checkout-btn,
+    .guarantee-btn,
+    .cancel-btn {
+      background: linear-gradient(90deg, var(--primary), var(--primary-d));
+      color: #0f0f1a;
       border: none;
-      padding: 1.3rem;
+      padding: 1.2rem;
       border-radius: 999px;
-      font-size: 1.22rem;
-      font-weight: 700;
+      font-size: 1.15rem;
+      font-weight: 600;
       cursor: pointer;
-      margin: 1.6rem 0 0.8rem;
+      margin: 1.4rem 0 0.6rem;
       width: 100%;
-      transition: all 0.32s;
-      box-shadow: 0 10px 36px rgba(255,235,59,0.45);
+      transition: all 0.3s;
     }
 
-    .checkout-btn:hover, .guarantee-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 56px rgba(255,235,59,0.65);
+    .checkout-btn:hover,
+    .guarantee-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255,212,59,0.5);
     }
 
     .cancel-btn {
-      background: linear-gradient(90deg, var(--red), #d32f6b);
+      background: linear-gradient(90deg, var(--red), #cc0033);
       color: white;
     }
 
     .guarantee-btn {
-      max-width: 460px;
-      margin: 2.5rem auto 1.2rem;
+      max-width: 420px;
+      margin: 2rem auto 1rem;
       display: block;
     }
 
     footer {
       text-align: center;
-      padding: 4rem 1rem 3rem;
-      color: var(--text2);
-      border-top: 1px solid rgba(255,255,255,0.04);
-      margin-top: 8rem;
+      padding: 3rem 1rem;
+      color: var(--text-soft);
+      border-top: 1px solid #222;
+      margin-top: 6rem;
     }
 
     .discord-link {
-      color: var(--yellow);
-      font-weight: 700;
+      color: var(--primary);
+      font-weight: 600;
       text-decoration: none;
     }
 
     .discord-link:hover { color: var(--accent); }
 
-    .info-box {
-      background: rgba(0,234,255,0.08);
-      border: 1px solid rgba(0,234,255,0.18);
-      border-radius: var(--radius);
-      padding: 1.6rem;
-      margin: 1.8rem 0;
-      font-size: 1.08rem;
+    .vp-note, .note {
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 14px;
+      padding: 1.4rem;
+      margin: 1.5rem 0;
       text-align: center;
+      font-size: 1.05rem;
     }
 
     .coming-soon {
       font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: clamp(4.5rem, 12vw, 8rem);
+      font-size: 5rem;
       text-align: center;
       color: var(--red);
-      text-shadow: 0 0 80px rgba(255,77,136,0.7);
-      margin: 8rem 0;
-      animation: pulseRed 3.2s infinite alternate;
+      text-shadow: 0 0 40px rgba(255,77,107,0.6);
+      margin: 6rem 0;
+      animation: glow 2.5s infinite alternate;
     }
 
-    @keyframes pulseRed {
-      from { text-shadow: 0 0 40px rgba(255,77,136,0.5); }
-      to   { text-shadow: 0 0 120px rgba(255,77,136,1); }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(255,77,107,0.4); }
+      to   { text-shadow: 0 0 60px rgba(255,77,107,0.9); }
     }
 
-    @media (max-width: 640px) {
-      h1 { font-size: 3.4rem; }
-      nav a { padding: 0.6rem 1.1rem; font-size: 1rem; }
-      .product { padding: 1.6rem 1.2rem; }
-      .price { font-size: 2.1rem; }
-      .cart-icon { width: 74px; height: 74px; font-size: 2rem; bottom: 24px; right: 24px; }
+    .how-to {
+      background: var(--card);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      line-height: 1.8;
+      border: 1px solid rgba(0,212,255,0.12);
+    }
+
+    .how-to h2 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.6rem; }
+      nav { gap: 0.8rem; }
+      nav a { font-size: 1rem; padding: 0.5rem 0.9rem; }
+      .product { padding: 1.4rem 1rem; }
+      .price { font-size: 1.9rem; }
+      .cart-icon { width: 64px; height: 64px; font-size: 1.8rem; bottom: 20px; right: 20px; }
     }
   </style>
 </head>
@@ -425,32 +388,30 @@
     <a href="#" class="tab-link" data-tab="valorant">Valorant Points</a>
     <a href="#" class="tab-link" data-tab="robux">Robuxy</a>
     <a href="#" class="tab-link" data-tab="nitro">Nitro</a>
-    <a href="#" class="tab-link" data-tab="howto">Jak kupić</a>
+    <a href="#" class="tab-link" data-tab="howto">Jak zamówić</a>
   </nav>
 </header>
 
 <main>
   <div id="optymalizacja" class="category active"></div>
   <div id="valorant" class="category">
-    <div class="info-box">
-      VP możesz kupić od ręki na stronie albo dowolną ilość przez ticket na Discordzie.<br><br>
-      <strong>Gwarancja zwrotu 24h – 100% bezpiecznie</strong>
+    <div class="vp-note">
+      Valorant Points możesz kupić bezpośrednio na stronie (dodaj do koszyka) LUB otworzyć ticket na Discordzie i zamówić dowolną ilość!<br><br>
+      <strong>Gwarancja zwrotu do 24h – jeśli coś pójdzie nie tak, oddajemy kasę!</strong>
     </div>
   </div>
   <div id="robux" class="category"></div>
   <div id="nitro" class="category">
-    <div class="coming-soon">COMING<br>SOON</div>
+    <div class="coming-soon">COMING SOON</div>
   </div>
-  <div id="howto" class="category">
-    <div style="background:var(--surface); padding:2.8rem; border-radius:var(--radius); border:1px solid rgba(0,234,255,0.12);">
-      <h2 style="color:var(--accent); font-family:'Orbitron'; margin-bottom:1.8rem; font-size:2.2rem;">Jak kupić?</h2>
-      <ol style="padding-left:1.8rem; font-size:1.1rem; line-height:2;">
-        <li>Wybierz produkt(y)</li>
-        <li>Kliknij koszyk w prawym dolnym rogu → wybierz metodę płatności i uzupełnij dane</li>
-        <li>Skopiuj ID zamówienia i wyślij na ticket (oznacz @nie_teletubisek)</li>
-        <li>Czekaj na realizację – zazwyczaj 1–24 h</li>
-      </ol>
-    </div>
+  <div id="howto" class="how-to">
+    <h2>Jak zamówić?</h2>
+    <ol>
+      <li>Wybierz produkt/y</li>
+      <li>Idź do koszyka (ikona w prawym dolnym rogu) i wybierz płatność + wypełnij dane</li>
+      <li>Weź ID zamówienia i napisz na tickecie (spinguj @nie_teletubisek)</li>
+      <li>Czekaj na realizację – zwykle 1–24 h</li>
+    </ol>
   </div>
 </main>
 
@@ -463,11 +424,11 @@
   <div class="modal-content">
     <span class="close">×</span>
     <h2>Koszyk</h2>
-    <div id="cartItems" style="min-height:120px; margin:1.5rem 0;"></div>
-    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); margin:1.8rem 0;">
-    <p style="font-size:1.3rem;">Razem: <strong id="totalPrice" style="color:var(--yellow);">0 zł</strong></p>
-    <input type="text" id="discountCode" placeholder="Kod promocyjny (działa na optymalizację)" autocomplete="off">
-    <p id="discountInfo" style="min-height:1.6rem; margin-top:0.6rem; font-size:1.05rem;"></p>
+    <div id="cartItems"></div>
+    <hr style="border-color:rgba(255,255,255,0.1); margin:1.5rem 0;">
+    <p>Razem: <strong id="totalPrice">0 zł</strong></p>
+    <input type="text" id="discountCode" placeholder="Kod rabatowy (tylko na optymalizację)" autocomplete="off">
+    <p id="discountInfo" style="min-height:1.4rem;"></p>
     <button class="checkout-btn" id="checkoutBtn">Przejdź do płatności</button>
   </div>
 </div>
@@ -476,23 +437,23 @@
   <div class="modal-content">
     <span class="close">×</span>
     <h2>Płatność</h2>
-    <p style="font-size:1.3rem; margin-bottom:1.4rem;">Do zapłaty: <strong id="finalPrice" style="color:var(--yellow);">0 zł</strong></p>
+    <p><strong>Razem do zapłaty: <span id="finalPrice">0 zł</span></strong></p>
     <label>Metoda płatności</label>
     <select id="paymentMethod">
-      <option value="przelew">Przelew tradycyjny</option>
+      <option value="przelew">Przelew bankowy</option>
       <option value="psc">Paysafecard</option>
       <option value="paypal">PayPal</option>
     </select>
-    <label>Nick Discord *</label>
+    <label>Nazwa na Discordzie *</label>
     <input type="text" id="discordName" required autocomplete="off">
     <label>Imię i nazwisko *</label>
     <input type="text" id="fullName" required autocomplete="off">
     <label>E-mail kontaktowy *</label>
     <input type="email" id="email" required autocomplete="off">
-    <label>Telefon (opcjonalnie)</label>
+    <label>Numer telefonu (opcjonalnie)</label>
     <input type="tel" id="phone" autocomplete="off">
-    <div style="margin:1.6rem 0; display:flex; align-items:center; gap:1rem; font-size:1.05rem;">
-      <input type="checkbox" id="acceptTerms" required style="width:1.3rem; height:1.3rem; accent-color:var(--accent);">
+    <div style="margin:1.2rem 0; display:flex; align-items:center; gap:0.8rem;">
+      <input type="checkbox" id="acceptTerms" required>
       <label for="acceptTerms">Akceptuję regulamin zakupów</label>
     </div>
     <button class="checkout-btn" id="confirmOrder">Potwierdź zamówienie</button>
@@ -502,46 +463,48 @@
 <div class="modal" id="orderModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2 style="color:var(--green);">Zamówienie przyjęte!</h2>
-    <p style="font-size:1.3rem; margin:1.4rem 0;"><strong>ID zamówienia:</strong> <span id="orderId" style="color:var(--yellow); font-family:monospace;"></span></p>
+    <h2>Zamówienie przyjęte!</h2>
+    <p><strong>ID zamówienia:</strong> <span id="orderId"></span></p>
     <p><strong>Szacowany czas realizacji:</strong> <span id="waitTime"></span></p>
-    <p style="margin:1.6rem 0;">Skopiuj ID i wyślij na ticket (@nie_teletubisek)</p>
-    <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank" style="font-size:1.3rem; display:inline-block; margin:1rem 0;">→ Wejdź na Discorda</a>
-    <button class="cancel-btn checkout-btn" id="cancelOrderBtn" style="margin-top:2rem;">Anuluj to zamówienie</button>
+    <p>Skopiuj ID zamówienia i napisz na tickecie Discorda (@nie_teletubisek).</p>
+    <p>Dziękujemy za zakup w FastShop!</p>
+    <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank">Przejdź na Discorda</a>
+    <button class="cancel-btn" id="cancelOrderBtn">Anuluj zamówienie</button>
   </div>
 </div>
 
 <div class="modal" id="cancelModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2>Anulowanie zamówienia</h2>
-    <p>Wpisz ID zamówienia:</p>
-    <input type="text" id="cancelId" placeholder="FS-..." autocomplete="off">
-    <button class="checkout-btn" id="confirmCancel" style="margin-top:1.6rem;">Potwierdź anulowanie</button>
+    <h2>Anuluj zamówienie</h2>
+    <p>Wpisz ID zamówienia do anulowania:</p>
+    <input type="text" id="cancelId" placeholder="Wpisz ID zamówienia" autocomplete="off">
+    <button class="checkout-btn" id="confirmCancel">Potwierdź anulowanie</button>
   </div>
 </div>
 
 <div class="modal" id="cancelSuccessModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2 style="color:var(--red);">Zamówienie anulowane</h2>
-    <p>Informacja została wysłana do obsługi.</p>
+    <h2>Zamówienie anulowane!</h2>
+    <p>Twoje zamówienie zostało anulowane. Powiadomiliśmy obsługę.</p>
   </div>
 </div>
 
 <div class="modal" id="statsOptModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2 style="color:var(--accent);">Optymalizacja – wyniki & gwarancja</h2>
-    <p style="margin:1.4rem 0;">Działa na ~91% konfiguracji – realny wzrost wydajności gwarantowany.</p>
-    <ul style="list-style:none; margin:1.8rem 0; font-size:1.08rem; line-height:2.1;">
-      <li>✓ 200 → 400-550 FPS (Valorant/CS2/Fortnite)</li>
-      <li>✓ Średnio +130–190% więcej klatek</li>
-      <li>✓ Znacznie mniej stutterów i input lagu</li>
-      <li>✓ Ponad 450+ zadowolonych klientów</li>
+    <h2>Statystyki i Gwarancja Optymalizacji</h2>
+    <p>Nasza optymalizacja działa na <strong>91% komputerów</strong> – nie na każdym sprzęcie jest możliwa pełna efektywność, ale gwarantujemy realną poprawę!</p>
+    <h3>Przykładowe wyniki klientów:</h3>
+    <ul style="list-style:none; padding-left:0; margin:1.2rem 0;">
+      <li>✓ Z 200 FPS → 400-500 FPS w Valorant, CS2, Fortnite</li>
+      <li>✓ Średni wzrost wydajności: +120-180% FPS</li>
+      <li>✓ Mniej lagów, stabilniejsze działanie systemu</li>
+      <li>✓ Ponad 400 zadowolonych klientów</li>
     </ul>
-    <p style="color:var(--accent); font-weight:700; font-size:1.15rem; margin-top:2rem;">
-      Gwarancja zwrotu 100% w 24h jeśli nie będzie poprawy
+    <p style="color:var(--accent); font-weight:600; margin-top:1.5rem;">
+      Gwarancja: Jeśli optymalizacja nie zadziała – pełen zwrot pieniędzy w ciągu 24h od realizacji!
     </p>
   </div>
 </div>
@@ -549,14 +512,15 @@
 <div class="modal" id="vpModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2 style="color:var(--accent);">Valorant Points – bezpieczeństwo</h2>
-    <ul style="list-style:none; margin:1.8rem 0; font-size:1.08rem; line-height:2.1;">
-      <li>✓ Legalne źródła – zero ryzyka bana</li>
-      <li>✓ Realizacja 1–24 h</li>
-      <li>✓ Doładowanie bezpośrednio na konto</li>
+    <h2>Gwarancja Valorant Points</h2>
+    <p>Kupujesz u nas z pełnym spokojem – wszystkie VP pochodzą z legalnych źródeł.</p>
+    <ul style="list-style:none; padding-left:0; margin:1.2rem 0;">
+      <li>✓ Szybka realizacja (1-24h)</li>
+      <li>✓ Bezpieczne doładowanie bezpośrednio na konto</li>
+      <li>✓ Zero ryzyka bana</li>
     </ul>
-    <p style="color:var(--accent); font-weight:700; font-size:1.15rem; margin-top:2rem;">
-      Gwarancja zwrotu 24 h – replacement lub full refund
+    <p style="color:var(--accent); font-weight:600; margin-top:1.5rem;">
+      Gwarancja zwrotu do 24h po zakupie – jeśli coś pójdzie nie tak, oddamy pieniądze lub dostarczymy VP ponownie!
     </p>
   </div>
 </div>
@@ -564,276 +528,345 @@
 <div class="modal" id="statsRobuxModal">
   <div class="modal-content">
     <span class="close">×</span>
-    <h2 style="color:var(--accent);">Robux – bezpieczeństwo</h2>
-    <ul style="list-style:none; margin:1.8rem 0; font-size:1.08rem; line-height:2.1;">
-      <li>✓ Legalne źródła – zero ryzyka bana</li>
-      <li>✓ Realizacja 1–24 h</li>
-      <li>✓ Doładowanie bezpośrednio na konto</li>
+    <h2>Gwarancja Robuxy</h2>
+    <p>Kupujesz u nas z pełnym spokojem – wszystkie Robuxy pochodzą z legalnych źródeł.</p>
+    <ul style="list-style:none; padding-left:0; margin:1.2rem 0;">
+      <li>✓ Szybka realizacja (1-24h)</li>
+      <li>✓ Bezpieczne doładowanie bezpośrednio na konto</li>
+      <li>✓ Zero ryzyka bana</li>
     </ul>
-    <p style="color:var(--accent); font-weight:700; font-size:1.15rem; margin-top:2rem;">
-      Gwarancja zwrotu 24 h – replacement lub full refund
+    <p style="color:var(--accent); font-weight:600; margin-top:1.5rem;">
+      Gwarancja zwrotu do 24h po zakupie – jeśli coś pójdzie nie tak, oddamy pieniądze lub dostarczymy Robuxy ponownie!
     </p>
   </div>
 </div>
 
 <footer>
-  Problem? Zamów od ręki na Discordzie → 
+  Masz problem z zamówieniem? Zamów bezpośrednio na Discordzie → 
   <a href="https://discord.gg/BKV37cxef5" class="discord-link" target="_blank">@nie_teletubisek</a>
 </footer>
 
 <script>
-const WEBHOOK_B64="aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ1NjM1Mzg5MzMzOTYzMTgzNy9GZnJVUUhoTEpYYXo0OVhrcHpybjBLbjdRNEt1ZGo1WXNIZFdZMUN2Q0p5N1Jtb2Y4RHRLVTdmVWxYWHpzcVBBQmo1bg==";
-const webhookUrl=atob(WEBHOOK_B64);
-let cart=[];
-let currentOrderId="";
-const discountCodes={"FAST2026":0.12,"BOOST15":0.15};
+  // === KONFIGURACJA ===
+  const WEBHOOK_B64 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ1NjM1Mzg5MzMzOTYzMTgzNy9GZnJVUUhoTEpYYXo0OVhrcHpybjBLbjdRNEt1ZGo1WXNIZFdZMUN2Q0p5N1Jtb2Y4RHRLVTdmVWxYWHpzcVBBQmo1bg==";
+  const DISCORD_LINK = "https://discord.gg/BKV37cxef5";
 
-const products={
-  optymalizacja:[
-    {n:"Basic Chip",p:0,s:"V",d:"Podstawowa optymalizacja",r:"R"},
-    {n:"Speed Chip",p:10,s:"V",d:"Średni wzrost wydajności",r:"R"},
-    {n:"Furious Chip",p:25,s:"V",d:"Agresywna optymalizacja",r:"R"},
-    {n:"Ultra Chip",p:50,s:"V",d:"Maksymalna wydajność",r:"R"},
-    {n:"Streamer Chip",p:100,s:"V",d:"Zero lagów – streaming",r:"R"}
-  ],
-  valorant:[
-    {n:"225 VP",p:10.93,s:"V",d:"",r:"L"},
-    {n:"475 VP",p:17.92,s:"V",d:"",r:"L"},
-    {n:"1000 VP",p:35.85,s:"V",d:"",r:"L"},
-    {n:"1520 VP",p:53.77,s:"V",d:"",r:"L"},
-    {n:"2575 VP",p:89.62,s:"V",d:"",r:"L"},
-    {n:"5350 VP",p:179.23,s:"V",d:"",r:"L"},
-    {n:"8705 VP",p:288.77,s:"V",d:"",r:"L"}
-  ],
-  robux:[
-    {n:"800 Robux",p:36.13,s:"V",d:"",r:"L"},
-    {n:"2000 Robux",p:88.92,s:"V",d:"",r:"L"},
-    {n:"4500 Robux",p:179.34,s:"V",d:"",r:"L"},
-    {n:"10000 Robux",p:373.46,s:"V",d:"",r:"L"}
-  ]
-};
+  const products = {
+    optymalizacja: [
+      { name: "Basic Chip",     price: 0,    stock: "V", desc: "Podstawowa optymalizacja",     discount: "R" },
+      { name: "Speed Chip",     price: 10,   stock: "V", desc: "Zwiększona wydajność",         discount: "R" },
+      { name: "Furious Chip",   price: 25,   stock: "V", desc: "Agresywna optymalizacja",       discount: "R" },
+      { name: "Ultra Chip",     price: 50,   stock: "V", desc: "Maksymalna moc",                discount: "R" },
+      { name: "Streamer Chip",  price: 100,  stock: "V", desc: "Dla streamerów – zero lagów",  discount: "R" }
+    ],
+    valorant: [
+      { name: "225 VP",   price: 10.93, stock: "V", desc: "", discount: "L" },
+      { name: "475 VP",   price: 17.92, stock: "V", desc: "", discount: "L" },
+      { name: "1000 VP",  price: 35.85, stock: "V", desc: "", discount: "L" },
+      { name: "1520 VP",  price: 53.77, stock: "V", desc: "", discount: "L" },
+      { name: "2575 VP",  price: 89.62, stock: "V", desc: "", discount: "L" },
+      { name: "5350 VP",  price: 179.23, stock: "V", desc: "", discount: "L" },
+      { name: "8705 VP",  price: 288.77, stock: "V", desc: "", discount: "L" }
+    ],
+    robux: [
+      { name: "800 Robux",   price: 36.13, stock: "V", desc: "", discount: "L" },
+      { name: "2000 Robux",  price: 88.92, stock: "V", desc: "", discount: "L" },
+      { name: "4500 Robux",  price: 179.34, stock: "V", desc: "", discount: "L" },
+      { name: "10000 Robux", price: 373.46, stock: "V", desc: "", discount: "L" }
+    ]
+  };
 
-function renderProducts(){
-  Object.keys(products).forEach(k=>{
-    const c=document.getElementById(k);
-    if(!c)return;
-    c.innerHTML="";
-    products[k].forEach(p=>{
-      const d=document.createElement("div");
-      d.className="product";
-      d.dataset.name=p.n;
-      d.dataset.price=p.p;
-      const stockClass=p.s==="V"?"in-stock":"out-stock";
-      const stockIcon=p.s==="V"?'<i class="fas fa-check"></i>':'<i class="fas fa-times"></i>';
-      const disabled=p.s!=="V"?"disabled":"";
-      const discClass=p.r==="R"?"yes":"no";
-      const discIcon=p.r==="R"?'<i class="fas fa-check"></i>':'<i class="fas fa-times"></i>';
-      const discText=p.r==="R"?"Rabat OK":"Rabat ×";
-      d.innerHTML=`
-        <h3>${p.n}</h3>
-        ${p.d?`<p class="desc">${p.d}</p>`:""}
-        <div class="price">${p.p.toFixed(2).replace(".",",")} zł</div>
-        <div class="badge ${stockClass}">${stockIcon} ${p.s==="V"?"Dostępny":"Brak"}</div>
-        <div class="badge ${discClass}">${discIcon} ${discText}</div>
-        <button class="add-to-cart ${disabled}" ${disabled}>Dodaj do koszyka</button>
-      `;
-      c.appendChild(d);
+  const webhookUrl = atob(WEBHOOK_B64);
+  let cart = [];
+  let currentOrderId = '';
+  const discountCodes = { "NOWYROK": 0.10, "FAST10": 0.10 };
+
+  function renderProducts() {
+    Object.keys(products).forEach(category => {
+      const container = document.getElementById(category);
+      if (!container) return;
+      container.innerHTML = '';
+
+      products[category].forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.dataset.name = product.name;
+        div.dataset.price = product.price;
+
+        const stockClass = product.stock === 'V' ? 'in-stock' : 'out-stock';
+        const stockIcon = product.stock === 'V' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+        const disabled = product.stock !== 'V' ? 'disabled' : '';
+
+        const discountClass = product.discount === 'R' ? 'yes' : 'no';
+        const discountIcon = product.discount === 'R' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+        const discountText = product.discount === 'R' ? 'Rabat działa' : 'Rabat nie działa';
+
+        div.innerHTML = `
+          <h3>${product.name}</h3>
+          ${product.desc ? `<p>${product.desc}</p>` : ''}
+          <div class="price">${product.price.toFixed(2).replace('.', ',')} zł</div>
+          <div class="stock ${stockClass}">${stockIcon} ${product.stock === 'V' ? 'W stocku' : 'Brak na stocku'}</div>
+          <div class="discount ${discountClass}">${discountIcon} ${discountText}</div>
+          <button class="add-to-cart ${disabled}" ${disabled}>Dodaj do koszyka</button>
+        `;
+        container.appendChild(div);
+      });
+    });
+
+    // Dodajemy przyciski gwarancji
+    const optContainer = document.getElementById('optymalizacja');
+    if (optContainer) {
+      const btn = document.createElement('button');
+      btn.className = 'guarantee-btn';
+      btn.textContent = 'Statystyki i Gwarancja Optymalizacji';
+      btn.onclick = () => document.getElementById('statsOptModal').style.display = 'flex';
+      optContainer.appendChild(btn);
+    }
+
+    const vpContainer = document.getElementById('valorant');
+    if (vpContainer) {
+      const btn = document.createElement('button');
+      btn.className = 'guarantee-btn';
+      btn.textContent = 'Gwarancja i Bezpieczeństwo VP';
+      btn.onclick = () => document.getElementById('vpModal').style.display = 'flex';
+      vpContainer.appendChild(btn);
+    }
+
+    const robuxContainer = document.getElementById('robux');
+    if (robuxContainer) {
+      const btn = document.createElement('button');
+      btn.className = 'guarantee-btn';
+      btn.textContent = 'Gwarancja i Bezpieczeństwo Robuxy';
+      btn.onclick = () => document.getElementById('statsRobuxModal').style.display = 'flex';
+      robuxContainer.appendChild(btn);
+    }
+
+    // Eventy dodawania do koszyka
+    document.querySelectorAll('.add-to-cart:not(.disabled)').forEach(btn => {
+      btn.addEventListener('click', addToCart);
+    });
+  }
+
+  function addToCart(e) {
+    const product = e.target.closest('.product');
+    const name = product.dataset.name;
+    const price = parseFloat(product.dataset.price);
+    const existing = cart.find(item => item.name === name);
+
+    if (existing) existing.qty++;
+    else cart.push({ name, price, qty: 1 });
+
+    updateCartCount();
+    renderCart();
+  }
+
+  function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+  }
+
+  function getTotal() {
+    let discountTotal = 0;
+    let otherTotal = 0;
+
+    cart.forEach(item => {
+      const prod = Object.values(products).flat().find(p => p.name === item.name);
+      if (prod && prod.discount === 'R') {
+        discountTotal += item.price * item.qty;
+      } else {
+        otherTotal += item.price * item.qty;
+      }
+    });
+
+    const code = (document.getElementById('discountCode')?.value || '').toUpperCase().trim();
+    const infoEl = document.getElementById('discountInfo');
+
+    if (discountCodes[code] && discountTotal > 0) {
+      discountTotal *= (1 - discountCodes[code]);
+      if (infoEl) {
+        infoEl.textContent = `Zastosowano kod ${code}: -${discountCodes[code]*100}% na optymalizację`;
+        infoEl.style.color = 'var(--green)';
+      }
+    } else if (code && infoEl) {
+      infoEl.textContent = discountTotal > 0 ? 'Nieprawidłowy kod' : 'Kod działa tylko na optymalizację';
+      infoEl.style.color = 'var(--red)';
+    } else if (infoEl) {
+      infoEl.textContent = '';
+    }
+
+    return discountTotal + otherTotal;
+  }
+
+  function renderCart() {
+    const itemsDiv = document.getElementById('cartItems');
+    const total = getTotal();
+
+    itemsDiv.innerHTML = cart.length === 0
+      ? '<p style="text-align:center; color:var(--text-soft);">Koszyk jest pusty</p>'
+      : cart.map(item => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:0.8rem; border-radius:10px; margin-bottom:0.8rem;">
+          <div>${item.name} ×${item.qty}</div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <strong>${(item.price * item.qty).toFixed(2).replace('.', ',')} zł</strong>
+            <button class="remove-item" data-name="${item.name}" style="background:var(--red); color:white; border:none; padding:0.4rem 0.9rem; border-radius:8px; cursor:pointer;">Usuń</button>
+          </div>
+        </div>
+      `).join('');
+
+    document.getElementById('totalPrice').textContent = total.toFixed(2).replace('.', ',') + ' zł';
+    
+    document.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', removeFromCart);
+    });
+  }
+
+  function removeFromCart(e) {
+    const name = e.target.dataset.name;
+    cart = cart.filter(item => item.name !== name);
+    updateCartCount();
+    renderCart();
+  }
+
+  // Eventy
+  document.getElementById('discountCode')?.addEventListener('input', () => renderCart());
+
+  document.getElementById('cartIcon').addEventListener('click', () => {
+    renderCart();
+    document.getElementById('cartModal').style.display = 'flex';
+  });
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    if (cart.length === 0) return alert('Koszyk jest pusty!');
+    document.getElementById('cartModal').style.display = 'none';
+    document.getElementById('checkoutModal').style.display = 'flex';
+    document.getElementById('finalPrice').textContent = getTotal().toFixed(2).replace('.', ',') + ' zł';
+  });
+
+  document.getElementById('confirmOrder').addEventListener('click', () => {
+    const discord = document.getElementById('discordName').value.trim();
+    const name    = document.getElementById('fullName').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const terms   = document.getElementById('acceptTerms').checked;
+
+    if (!discord || !name || !email || !terms) {
+      return alert('Wypełnij wymagane pola i zaakceptuj regulamin!');
+    }
+
+    const orderId = 'FS-' + Date.now().toString(36).toUpperCase();
+    currentOrderId = orderId;
+
+    const waitHours = Math.floor(Math.random() * 24) + 1;
+    const waitTime = waitHours === 1 ? '1 godzina' : waitHours + ' godzin';
+
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('waitTime').textContent = waitTime;
+
+    const total = getTotal();
+    const code = (document.getElementById('discountCode')?.value || '').toUpperCase() || 'Brak';
+    const payment = document.getElementById('paymentMethod').value;
+    const phone = document.getElementById('phone').value.trim() || 'Brak';
+    const productsList = cart.map(i => `${i.name} ×${i.qty}`).join('\n');
+
+    const payload = {
+      embeds: [{
+        title: "🛒 Nowe Zamówienie – FastShop",
+        description: `**ID:** ${orderId}\n**Czas realizacji:** ~${waitTime}`,
+        color: 0xFFD43B,
+        fields: [
+          { name: "Klient",        value: `${name}  (@${discord})`, inline: true },
+          { name: "E-mail",        value: email,                    inline: true },
+          { name: "Telefon",       value: phone,                    inline: true },
+          { name: "Płatność",      value: payment.toUpperCase(),    inline: true },
+          { name: "Produkty",      value: productsList || '—',      inline: false },
+          { name: "Kod rabatowy",  value: code,                     inline: true },
+          { name: "Kwota",         value: total.toFixed(2) + " zł", inline: true }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: { text: "FastShop • " + new Date().toLocaleString('pl-PL') }
+      }]
+    };
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+
+    document.getElementById('checkoutModal').style.display = 'none';
+    document.getElementById('orderModal').style.display = 'flex';
+
+    // Czyszczenie
+    cart = [];
+    updateCartCount();
+    document.getElementById('discordName').value = '';
+    document.getElementById('fullName').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('paymentMethod').value = 'przelew';
+    document.getElementById('acceptTerms').checked = false;
+    if (document.getElementById('discountCode')) document.getElementById('discountCode').value = '';
+  });
+
+  document.getElementById('cancelOrderBtn').addEventListener('click', () => {
+    document.getElementById('orderModal').style.display = 'none';
+    document.getElementById('cancelModal').style.display = 'flex';
+  });
+
+  document.getElementById('confirmCancel').addEventListener('click', () => {
+    const inputId = document.getElementById('cancelId').value.trim();
+    if (inputId !== currentOrderId) return alert('Nieprawidłowe ID zamówienia!');
+
+    const payload = {
+      embeds: [{
+        title: "❌ Anulowano zamówienie",
+        description: `ID: ${inputId}\nZamówienie anulowane przez klienta.`,
+        color: 0xFF4D6B,
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+
+    document.getElementById('cancelModal').style.display = 'none';
+    document.getElementById('cancelSuccessModal').style.display = 'flex';
+    currentOrderId = '';
+  });
+
+  // Zamykanie modalów
+  document.querySelectorAll('.close').forEach(el => {
+    el.addEventListener('click', () => {
+      el.closest('.modal').style.display = 'none';
     });
   });
 
-  const btns=[
-    {id:"optymalizacja",text:"Statystyki i Gwarancja Optymalizacji",modal:"statsOptModal"},
-    {id:"valorant",text:"Gwarancja & Bezpieczeństwo VP",modal:"vpModal"},
-    {id:"robux",text:"Gwarancja & Bezpieczeństwo Robux",modal:"statsRobuxModal"}
-  ];
+  // Przełączanie zakładek
+  document.querySelectorAll('.tab-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
 
-  btns.forEach(b=>{
-    const cont=document.getElementById(b.id);
-    if(!cont)return;
-    const btn=document.createElement("button");
-    btn.className="guarantee-btn";
-    btn.textContent=b.text;
-    btn.onclick=()=>document.getElementById(b.modal).style.display="flex";
-    cont.appendChild(btn);
+      document.querySelectorAll('.category, .how-to').forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.display = 'none';
+      });
+
+      const target = link.dataset.tab;
+      const section = document.getElementById(target);
+      if (section) {
+        section.classList.add('active');
+        section.style.display = target === 'howto' ? 'block' : 'grid';
+      }
+    });
   });
 
-  document.querySelectorAll(".add-to-cart:not(.disabled)").forEach(b=>b.addEventListener("click",addToCart));
-}
-
-function addToCart(e){
-  const el=e.target.closest(".product");
-  const name=el.dataset.name;
-  const price=parseFloat(el.dataset.price);
-  const item=cart.find(i=>i.n===name);
-  if(item)item.q++;
-  else cart.push({n:name,p:price,q:1});
+  // Inicjalizacja
+  renderProducts();
   updateCartCount();
-  renderCart();
-}
-
-function updateCartCount(){
-  document.getElementById("cartCount").textContent=cart.reduce((a,i)=>a+i.q,0);
-}
-
-function getTotal(){
-  let discSum=0,otherSum=0;
-  cart.forEach(i=>{
-    const prod=Object.values(products).flat().find(p=>p.n===i.n);
-    if(prod&&prod.r==="R")discSum+=i.p*i.q;
-    else otherSum+=i.p*i.q;
-  });
-
-  const code=(document.getElementById("discountCode")?.value||"").toUpperCase().trim();
-  const info=document.getElementById("discountInfo");
-
-  if(discountCodes[code]&&discSum>0){
-    discSum*=(1-discountCodes[code]);
-    if(info){
-      info.textContent=`Kod ${code} → -${discountCodes[code]*100}% na optymalizację`;
-      info.style.color=var(--green);
-    }
-  }else if(code&&info){
-    info.textContent=discSum>0?"Nieprawidłowy kod":"Kod tylko na optymalizację";
-    info.style.color=var(--red);
-  }else if(info)info.textContent="";
-
-  return discSum+otherSum;
-}
-
-function renderCart(){
-  const div=document.getElementById("cartItems");
-  const tot=getTotal();
-
-  div.innerHTML=cart.length<1
-    ?'<p style="text-align:center;color:var(--text2);padding:2rem 0;">Koszyk pusty</p>'
-    :cart.map(i=>`
-      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);padding:1rem;border-radius:var(--radius-sm);margin-bottom:1rem;">
-        <div style="font-size:1.1rem;">${i.n} ×${i.q}</div>
-        <div style="display:flex;align-items:center;gap:1.4rem;">
-          <strong style="font-size:1.2rem;">${(i.p*i.q).toFixed(2).replace(".",",")} zł</strong>
-          <button class="remove-item" data-name="${i.n}" style="background:var(--red);color:white;border:none;padding:0.5rem 1.1rem;border-radius:8px;cursor:pointer;font-weight:600;">Usuń</button>
-        </div>
-      </div>
-    `).join("");
-
-  document.getElementById("totalPrice").textContent=tot.toFixed(2).replace(".",",")+" zł";
-
-  document.querySelectorAll(".remove-item").forEach(b=>b.onclick=e=>{
-    const nm=e.target.dataset.name;
-    cart=cart.filter(i=>i.n!==nm);
-    updateCartCount();
-    renderCart();
-  });
-}
-
-document.getElementById("discountCode")?.addEventListener("input",renderCart);
-
-document.getElementById("cartIcon").onclick=()=>{
-  renderCart();
-  document.getElementById("cartModal").style.display="flex";
-};
-
-document.getElementById("checkoutBtn").onclick=()=>{
-  if(cart.length<1)return alert("Koszyk jest pusty");
-  document.getElementById("cartModal").style.display="none";
-  document.getElementById("checkoutModal").style.display="flex";
-  document.getElementById("finalPrice").textContent=getTotal().toFixed(2).replace(".",",")+" zł";
-};
-
-document.getElementById("confirmOrder").onclick=()=>{
-  const d=document.getElementById("discordName").value.trim();
-  const n=document.getElementById("fullName").value.trim();
-  const e=document.getElementById("email").value.trim();
-  const t=document.getElementById("acceptTerms").checked;
-  if(!d||!n||!e||!t)return alert("Uzupełnij wymagane pola i zaakceptuj regulamin");
-
-  const id="FS-"+Date.now().toString(36).toUpperCase();
-  currentOrderId=id;
-
-  const h=Math.floor(Math.random()*24)+1;
-  const wait=h===1?"≈1 h":`≈${h} h`;
-
-  document.getElementById("orderId").textContent=id;
-  document.getElementById("waitTime").textContent=wait;
-
-  const total=getTotal();
-  const code=(document.getElementById("discountCode")?.value||"").toUpperCase()||"—";
-  const pay=document.getElementById("paymentMethod").value;
-  const phone=document.getElementById("phone").value.trim()||"—";
-  const list=cart.map(i=>`${i.n} ×${i.q}`).join("\n");
-
-  fetch(webhookUrl,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      embeds:[{
-        title:"🛒 FastShop – NOWE ZAMÓWIENIE",
-        description:`**ID →** ${id}\n**Czas →** ${wait}`,
-        color:0xFFEB3B,
-        fields:[
-          {name:"Klient",value:`${n}  (@${d})`,inline:true},
-          {name:"E-mail",value:e,inline:true},
-          {name:"Telefon",value:phone,inline:true},
-          {name:"Płatność",value:pay.toUpperCase(),inline:true},
-          {name:"Produkty",value:list||"—",inline:false},
-          {name:"Kod",value:code,inline:true},
-          {name:"Kwota",value:`${total.toFixed(2)} zł`,inline:true}
-        ],
-        timestamp:new Date().toISOString()
-      }]
-    })
-  }).catch(()=>{});  
-
-  document.getElementById("checkoutModal").style.display="none";
-  document.getElementById("orderModal").style.display="flex";
-
-  cart=[];
-  updateCartCount();
-  ["discordName","fullName","email","phone","discountCode"].forEach(id=>document.getElementById(id).value="");
-  document.getElementById("paymentMethod").value="przelew";
-  document.getElementById("acceptTerms").checked=false;
-};
-
-document.getElementById("cancelOrderBtn").onclick=()=>{
-  document.getElementById("orderModal").style.display="none";
-  document.getElementById("cancelModal").style.display="flex";
-};
-
-document.getElementById("confirmCancel").onclick=()=>{
-  if(document.getElementById("cancelId").value.trim()!==currentOrderId)return alert("Błędne ID zamówienia");
-
-  fetch(webhookUrl,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      embeds:[{
-        title:"❌ ANULOWANO ZAMÓWIENIE",
-        description:`ID: ${currentOrderId}\nAnulowane przez klienta`,
-        color:0xFF4D88,
-        timestamp:new Date().toISOString()
-      }]
-    })
-  }).catch(()=>{});  
-
-  document.getElementById("cancelModal").style.display="none";
-  document.getElementById("cancelSuccessModal").style.display="flex";
-  currentOrderId="";
-};
-
-document.querySelectorAll(".close").forEach(el=>el.onclick=()=>el.closest(".modal").style.display="none");
-
-document.querySelectorAll(".tab-link").forEach(a=>{
-  a.onclick=e=>{
-    e.preventDefault();
-    document.querySelectorAll(".tab-link").forEach(x=>x.classList.remove("active"));
-    a.classList.add("active");
-    document.querySelectorAll(".category").forEach(s=>s.classList.remove("active"));
-    document.getElementById(a.dataset.tab).classList.add("active");
-  };
-});
-
-renderProducts();
-updateCartCount();
 </script>
 </body>
 </html>
