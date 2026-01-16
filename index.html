@@ -489,7 +489,7 @@ const WEBHOOK_B64 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ1NjM1Mzg5MzM
 const webhookUrl = atob(WEBHOOK_B64);
 let cart = [];
 let currentOrderId = '';
-const discountCodes = { "Fast30": 0.30, "FAST5": 0.05 };
+const discountCodes = { "FAST30": 0.30, "FAST5": 0.05 };
 const products = {
   optymalizacja: [
     { name: "Basic Chip", price: 0, stock: "V", desc: "Podstawowa optymalizacja", discount: "R" },
@@ -729,6 +729,7 @@ updateCartCount();
 </script>
 </body>
 </html>
+
 
 
 
